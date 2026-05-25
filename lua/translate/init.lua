@@ -199,4 +199,57 @@ function M.copy_cmd(args)
 	end)
 end
 
+local languages = {
+	"en",
+	"id",
+	"es",
+	"fr",
+	"ja",
+	"ko",
+	"zh",
+	"de",
+	"ru",
+	"ar",
+	"it",
+	"pt",
+	"nl",
+	"tr",
+	"vi",
+	"th",
+	"ms",
+}
+
+function M.complete(arg_lead, cmd_line, cursor_pos)
+	local parts = {}
+	local cmd_to_cursor = cmd_line:sub(1, cursor_pos)
+	for word in cmd_to_cursor:gmatch("%S+") do
+		table.insert(parts, word)
+	end
+
+	local arg_index = #parts
+	if cmd_to_cursor:sub(-1):match("%s") then
+		arg_index = arg_index + 1
+	end
+
+	local cmd_arg_num = arg_index - 1
+
+	local list = {}
+	if cmd_arg_num == 1 then
+		list = languages
+	elseif cmd_arg_num == 2 then
+		list = { "auto" }
+		for _, lang in ipairs(languages) do
+			table.insert(list, lang)
+		end
+	end
+
+	local matches = {}
+	for _, item in ipairs(list) do
+		if item:sub(1, #arg_lead) == arg_lead then
+			table.insert(matches, item)
+		end
+	end
+	return matches
+end
+
 return M
