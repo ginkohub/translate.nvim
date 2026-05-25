@@ -192,10 +192,11 @@ function M.copy_cmd(args)
 	end
 	local target = args.fargs[1] or M.config.default_target
 	local source = args.fargs[2] or M.config.default_source
+	local backend = M.config.default_backend
 
 	run_translation(text, target, source, function(translated)
 		copy_to_registers(translated)
-		vim.notify("Translation copied to clipboard", vim.log.levels.INFO)
+		vim.notify("Translation copied " .. backend .. " (" .. target .. ")", vim.log.levels.INFO)
 	end)
 end
 

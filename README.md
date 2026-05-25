@@ -57,10 +57,11 @@ require("translate").setup({
   backends = {
     libretranslate = {
       url = {
-        "https://translate.fedilab.app",
-        "https://translate.mstdn.social",
-        "https://translate.rinderha.cc"
-      }
+        "https://libretranslate.com",
+        "https://libretranslate.de",
+        "https://libretranslate.us",
+      },
+      api_key = "",
     }
   }
 })
